@@ -6,8 +6,8 @@
   padding: 0;
 }
 :root {
-  --bg-base: #0b0d14;
-  --bg-surface: #111420;
+  --bg-base: #0b0d14; /* To try _#141a22_ */
+  --bg-surface: #0a0c12;
   --bg-raised: #181c2e;
   --bg-card: #1e2236;
   --bg-hover: #252a40;
@@ -32,7 +32,7 @@
 body {
   background: var(--bg-base);
   color: var(--text-primary);
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 15px;
   line-height: 1.5;
   min-height: 100vh;
@@ -147,7 +147,7 @@ body {
   position: absolute;
   top: calc(100% + 8px);
   right: 0;
-  background: var(--bg-card);
+  background: var(--bg-surface);
   border: 1px solid var(--border-bright);
   border-radius: var(--radius-lg);
   padding: 8px;

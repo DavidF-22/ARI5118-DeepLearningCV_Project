@@ -2,7 +2,7 @@
 const THEMES = {
   dark: {
     "--bg-base": "#0b0d14",
-    "--bg-surface": "#111420",
+    "--bg-surface": "#0a0c12",
     "--bg-card": "#1e2236",
     "--bg-hover": "#252a40",
     "--border": "#2a2f4a",
