@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Simulator</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link id="favicon" rel="icon" href="../simulator/assets/imgs/logo/logo_purple.png" type="image/png">
+    <link rel="stylesheet" href="../simulator/assets/css/styles.css">
+</head>
+
+<body>
+    <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+    <!-- ═══════════════ PRELOADER ═══════════════ -->
+
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+
+    <!-- ═══════════════ NAVBAR ═══════════════ -->
+
+    <nav class="navbar">
+
+        <!-- Logo -->
+        <div class="nav-logo">
+            <img id="appLogo" src="../simulator/assets/imgs/logo/logo_purple.png" alt="Simulator logo" />
+        </div>
+
+        <!-- Title -->
+        <h1 class="nav-title">
+            CNN Feature Visualization <span>&amp; DeepDream Simulator</span>
+        </h1>
+
+        <!-- Right-side actions -->
+        <div class="nav-actions">
+
+            <!-- Theme dropdown -->
+            <div class="theme-wrapper">
+                <button class="nav-icon-btn" id="themeBtn">
+                    <!-- Sun icon -->
+                    <img src="../simulator/assets/imgs/icons/sun.png" class="nav-icon-img" />
+                </button>
+
+                <div class="theme-dropdown" id="themeDropdown">
+                    <p class="theme-dropdown-title">Appearance</p>
+
+                    <button class="theme-option" data-theme="light">
+                        <!-- Sun icon (small) -->
+                        <img src="../simulator/assets/imgs/icons/sun.png" class="nav-icon-img" />
+                        Light
+                        <span class="opt-dot"></span>
+                    </button>
+
+                    <button class="theme-option active" data-theme="dark">
+                        <!-- Moon icon -->
+                        <img src="../simulator/assets/imgs/icons/moon.png" class="nav-icon-img" />
+                        Dark
+                        <span class="opt-dot"></span>
+                    </button>
+
+                    <button class="theme-option" data-theme="dylan">
+                        <!-- User icon -->
+                        <img src="../simulator/assets/imgs/icons/user.png" class="nav-icon-img" />
+                        Dylan
+                        <span class="opt-dot"></span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Help -->
+            <button class="nav-icon-btn" title="Help" aria-label="Help">
+                <img src="../simulator/assets/imgs/icons/question.png" class="nav-icon-img" />
+            </button>
+
+        </div>
+    </nav>
+
+    <!-- ═══════════════ CONTROL PANEL ═══════════════ -->
+
+    <script src="../simulator/assets/js/simulator.js" async defer></script>
+</body>
+
+</html>
