@@ -128,6 +128,27 @@ function initTheme() {
   });
 }
 
+function initChangeMode() {
+  const singleBtn = document.getElementById("singleModeBtn");
+  const compareBtn = document.getElementById("compareModeBtn");
+
+  if (!singleBtn || !compareBtn) return;
+
+  singleBtn.addEventListener("click", () => {
+    singleBtn.classList.add("active");
+    compareBtn.classList.remove("active");
+
+    document.querySelector(".control-panel-methodB").classList.remove("active");
+  });
+
+  compareBtn.addEventListener("click", () => {
+    singleBtn.classList.remove("active");
+    compareBtn.classList.add("active");
+
+    document.querySelector(".control-panel-methodB").classList.add("active");
+  });
+}
+
 // UPDATE PARAMETER VALUES
 function handleSlider(input) {
   const type = input.dataset.type;
@@ -140,6 +161,8 @@ function handleSlider(input) {
     displayValue = steps[value];
   } else if (type === "l2") {
     displayValue = "1e-" + value;
+  } else if (type === "octScale") {
+    displayValue = (value / 10).toFixed(1);
   } else {
     displayValue = value;
   }
@@ -147,17 +170,22 @@ function handleSlider(input) {
   document.getElementById(input.id + "Val").textContent = displayValue;
 }
 
-function resetParameters() {
+function initResetParams() {
   const sliders = document.querySelectorAll(".param-slider input");
   const selects = document.querySelectorAll(".ctrl-select");
+  const resetBtn = document.getElementById("resetParamsBtn");
 
-  sliders.forEach((slider) => {
-    slider.value = slider.dataset.default;
-    handleSlider(slider);
-  });
+  if (!resetBtn) return;
 
-  selects.forEach((select) => {
-    select.value = select.dataset.default;
+  resetBtn.addEventListener("click", () => {
+    sliders.forEach((slider) => {
+      slider.value = slider.dataset.default;
+      handleSlider(slider);
+    });
+
+    selects.forEach((select) => {
+      select.value = select.dataset.default;
+    });
   });
 }
 
@@ -221,4 +249,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initTheme();
   initHelpModal();
   initImageSelection();
+  initResetParams();
+  initChangeMode();
 });

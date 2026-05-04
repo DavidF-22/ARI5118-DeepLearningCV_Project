@@ -310,6 +310,37 @@ body {
   gap: 14px;
 }
 
+.modes-btn {
+  display: flex;
+  gap: 10px;
+}
+
+.modes-btn button {
+  padding: 6px 8px;
+  border-radius: var(--radius-md);
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  cursor: pointer;
+  transition: all 0.15s;
+  width: 100%;
+  background: none;
+  border: 1px solid var(--border-bright);
+  color: var(--text-secondary);
+
+}
+
+.modes-btn button:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.modes-btn button.active {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
 .ctrl-label {
   display: flex;
   align-items: center;
@@ -375,6 +406,15 @@ body {
   border-top: 1px solid var(--border);
   margin: 0;
 }
+
+.control-panel-methodB {
+  display: none;
+}
+
+.control-panel-methodB.active {
+  display: block;
+}
+
 
 /* Parameters Section */
 .params-section {

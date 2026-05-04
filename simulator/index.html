@@ -38,7 +38,7 @@
 
         <!-- Title -->
         <h1 class="nav-title">
-            CNN Feature Visualization <span>&amp; DeepDream Simulator</span>
+            CNN Feature Visualization <span>& DeepDream Simulator</span>
         </h1>
 
         <!-- Right-side actions -->
@@ -99,15 +99,33 @@
             </div>
 
             <div class="ctrl-group">
+                <div class="modes-btn">
+                    <button id="singleModeBtn" class="mode-btn active">Single Mode</button>
+                    <button id="compareModeBtn" class="mode-btn">Compare Mode</button>
+                </div>
+
+
                 <div>
                     <div class="ctrl-label">
-                        Method
+                        Method A
                         <span class="info-icon" title="Visualization technique">i</span>
                     </div>
                     <select class="ctrl-select" id="methodSelect" data-default="activation"
                         onchange="updateMethod(this.value)">
-                        <option value="activation">Activation Maximization</option>
+                        <option value="activation" selected>Activation Maximization</option>
                         <option value="deepdream">DeepDream</option>
+                    </select>
+                </div>
+
+                <div class="control-panel-methodB">
+                    <div class="ctrl-label">
+                        Method B
+                        <span class="info-icon" title="Visualization technique">i</span>
+                    </div>
+                    <select class="ctrl-select" id="methodSelect" data-default="deepdream"
+                        onchange="updateMethod(this.value)">
+                        <option value="activation">Activation Maximization</option>
+                        <option value="deepdream" selected>DeepDream</option>
                     </select>
                 </div>
 
@@ -190,8 +208,8 @@
             <div class="param-slider">
                 <div class="param-meta">
                     <span class="param-name">
-                        Scale Intensity
-                        <span class="info-icon" title="Octave detail level for DeepDream">i</span>
+                        (DeepDream) Octaves
+                        <span class="info-icon" title="Number of image scales used to enhance patterns at different levels">i</span>
                     </span>
                     <span class="param-val" id="octavesVal">4</span>
                 </div>
@@ -199,11 +217,23 @@
                     oninput="handleSlider(this)" />
             </div>
 
+            <div class="param-slider">
+                <div class="param-meta">
+                    <span class="param-name">
+                        (DeepDream) Octave Scale
+                        <span class="info-icon" title="How much the image is resized between each octave">i</span>
+                    </span>
+                    <span class="param-val" id="octScaleVal">1.4</span>
+                </div>
+                <input type="range" min="10" max="20" value="14" id="octScale" data-type="octScale" data-default="14"
+                    oninput="handleSlider(this)" />
+            </div>
+
             <hr class="sidebar-divider" />
 
             <div class="control-panel-buttons">
                 <button class="action-btn btn-primary">Update Visualization</button>
-                <button class="action-btn btn-secondary" onclick="resetParameters()">
+                <button id="resetParamsBtn" class="action-btn btn-secondary">
                     <img src="../simulator/assets/imgs/icons/reset-icon.png" alt="Reset Icon">
                     Reset Parameters
                 </button>
