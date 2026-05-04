@@ -85,9 +85,149 @@
         </div>
     </nav>
 
-    <!-- ═══════════════ CONTROL PANEL ═══════════════ -->
+    <!-- ═══════════════ MAIN ═══════════════ -->
+
+    <div class="main">
+
+        <!-- ═══════════════ CONTROL PANEL ═══════════════ -->
+
+        <aside class="control-panel">
+            <div class="control-panel-heading">
+                <img id="controlPanelIcon" src="../simulator/assets/imgs/icons/setting-lines-purple.png"
+                    alt="Control Panel Icon" />
+                Control Panel
+            </div>
+
+            <div class="ctrl-group">
+                <div>
+                    <div class="ctrl-label">
+                        Method
+                        <span class="info-icon" title="Visualization technique">i</span>
+                    </div>
+                    <select class="ctrl-select" id="methodSelect" onchange="updateMethod(this.value)">
+                        <option value="activation">Activation Maximization</option>
+                        <option value="deepdream">DeepDream</option>
+                    </select>
+                </div>
+
+                <div>
+                    <div class="ctrl-label">
+                        Layer
+                        <span class="info-icon" title="Network layer to visualize">i</span>
+                    </div>
+                    <select class="ctrl-select" id="layerSelect" onchange="updateLayer(this.value)">
+                        <option value="conv1">Conv1</option>
+                        <option value="conv2">Conv2</option>
+                        <option value="conv3">Conv3</option>
+                        <option value="conv4">Conv4</option>
+                        <option value="conv5">Conv5</option>
+                        <option value="flatten">Flatten</option>
+                        <option value="dense1">Dense (--)</option>
+                        <option value="dense2">Dense (Output)</option>
+                    </select>
+                </div>
+
+                <div>
+                    <div class="ctrl-label">
+                        Filter / Channel
+                        <span class="info-icon" title="Which filter to visualize">i</span>
+                    </div>
+                    <select class="ctrl-select" id="filterSelect">
+                        <option>Filter 1</option>
+                        <option>Filter 2</option>
+                        <option>Filter 3</option>
+                        <option>Filter 4</option>
+                        <option>Filter 5</option>
+                    </select>
+                </div>
+            </div>
+
+            <hr class="sidebar-divider" />
+
+            <div class="params-section">
+                <div class="params-heading">Parameters</div>
+            </div>
+
+            <div class="param-row">
+                <div class="param-meta">
+                    <span class="param-name">
+                        Step Size
+                        <span class="info-icon" title="Adjust the optimization step size">i</span>
+                    </span>
+                    <span class="param-val" id="stepSizeVal">0.001</span>
+                </div>
+                <input type="range" min="0" max="4" step="1" value="1" id="stepSize" data-type="step"
+                    oninput="handleSlider(this)" />
+            </div>
+
+            <div class="param-row">
+                <div class="param-meta">
+                    <span class="param-name">
+                        Iterations
+                        <span class="info-icon" title="Number of optimization iterations">i</span>
+                    </span>
+                    <span class="param-val" id="iterationsVal">100</span>
+                </div>
+                <input type="range" min="10" max="500" value="100" step="10" id="iterations" data-type="iterations"
+                    oninput="handleSlider(this)" />
+            </div>
+
+            <div class="param-row">
+                <div class="param-meta">
+                    <span class="param-name">
+                        L2 Regularization
+                        <span class="info-icon" title="Regularization strength">i</span>
+                    </span>
+                    <span class="param-val" id="l2Val">1e-5</span>
+                </div>
+                <input type="range" min="1" max="10" value="5" id="l2" data-type="l2" oninput="handleSlider(this)" />
+            </div>
+
+            <div class="param-row">
+                <div class="param-meta">
+                    <span class="param-name">
+                        Scale Intensity
+                        <span class="info-icon" title="Octave detail level for DeepDream">i</span>
+                    </span>
+                    <span class="param-val" id="octavesVal">4</span>
+                </div>
+                <input type="range" min="1" max="10" value="4" id="octaves" data-type="octaves"
+                    oninput="handleSlider(this)" />
+            </div>
+
+            <hr class="sidebar-divider" />
+
+            <div class="control-panel-buttons">
+                <button class="action-btn btn-primary">Update Visualization</button>
+                <button class="action-btn btn-secondary">
+                    <img src="../simulator/assets/imgs/icons/reset-icon.png" alt="Reset Icon">
+                    Reset Parameters
+                </button>
+            </div>
+        </aside>
+
+        <!-- ═══════════════ CONTENT ═══════════════ -->
+        <main class="content">
+
+            
+
+        </main>
+
+        <!-- ═══════════════ INPUT IMAGES ═══════════════ -->
+        <aside class="input-imgs">
+            <div class="input-imgs-heading">Input Images</div>
+
+            <div class="imgs-container">
+                <img src="../simulator/assets/imgs/input_imgs/Golden-Retriever.png" alt="Golden Retriever">
+                <img src="../simulator/assets/imgs/input_imgs/Black-Cat.png" alt="Black Cat">
+                <img src="../simulator/assets/imgs/input_imgs/mountains.png" alt="Mountains">
+                <img src="../simulator/assets/imgs/input_imgs/Parrot.png" alt="Parrot">
+                <img src="../simulator/assets/imgs/input_imgs/Tokyo_Shibuya.png" alt="Tokyo Shibuya">
+            </div>
+        </aside>
 
 
+    </div>
 
     <!-- ═══════════════ HELP CARD ═══════════════ -->
 
@@ -102,9 +242,18 @@
             <p><strong>3.</strong> Adjust parameters using sliders</p>
             <p><strong>4.</strong> Click "Update Visualization"</p>
 
-            <p style="margin-top:10px;">
+            <p style="margin-top:10px; margin-bottom:10px;">
                 This simulator uses precomputed outputs to demonstrate how CNN visualisation techniques behave under
-                different parameters.
+                different parameters. <br>
+            </p>
+
+            <hr class="sidebar-divider" />
+
+            <p style="margin-top:10px;">
+                This simulator was developed by <strong>David Farrugia</strong> as part of the final project for full
+                completion of the
+                ARI5118 - Deep Learning for Computer Vision study unit at the <a href="https://www.um.edu.mt"
+                    target="_blank">University of Malta</a>.
             </p>
         </div>
     </div>

@@ -1,7 +1,7 @@
-// ── THEME DROPDOWN ────────────────────────────────────
+// THEME DROPDOWN
 const THEMES = {
   dark: {
-    "--bg-base": "#0b0d14",
+    "--bg-base": "#131921",
     "--bg-surface": "#0a0c12",
     "--bg-card": "#1e2236",
     "--bg-hover": "#252a40",
@@ -12,13 +12,14 @@ const THEMES = {
     "--text-muted": "#555e80",
     "--accent": "#7c6fff",
     "--accent-text": "#a89fff",
+    "--accent-dim": "#4a42cc",
     "--accent-glow": "rgba(124, 111, 255, 0.18)",
     "--icon-filter": "invert(62%)",
     "--icon-filter-hover": "invert(93%)",
   },
 
   light: {
-    "--bg-base": "#f4f5f8",
+    "--bg-base": "#eff2fe",
     "--bg-surface": "#ffffff",
     "--bg-card": "#e8eaf0",
     "--bg-hover": "#dde0ea",
@@ -29,13 +30,14 @@ const THEMES = {
     "--text-muted": "#8891b0",
     "--accent": "#7c6fff",
     "--accent-text": "#a89fff",
+    "--accent-dim": "#4a42cc",
     "--accent-glow": "rgba(124, 111, 255, 0.18)",
     "--icon-filter": "invert(31%)",
     "--icon-filter-hover": "invert(9%)",
   },
 
   dylan: {
-    "--bg-base": "#f9fbfa",
+    "--bg-base": "#f0fbf5",
     "--bg-surface": "#ffffff",
     "--bg-card": "#eef7f3",
     "--bg-hover": "#e2f3eb",
@@ -47,19 +49,26 @@ const THEMES = {
     "--accent": "#64d19a",
     "--accent-text": "#3aa876",
     "--accent-glow": "rgba(100, 209, 154, 0.18)",
+    "--accent-dim": "#1f8f57",
     "--icon-filter": "invert(36%)",
     "--icon-filter-hover": "invert(12%)",
   },
 };
 
-// ── LOGOS ─────────────────────────────────────────────
+// LOGOS
 const LOGOS = {
   dark: "../simulator/assets/imgs/logo/logo_purple.png",
   light: "../simulator/assets/imgs/logo/logo_purple.png",
   dylan: "../simulator/assets/imgs/logo/logo_black.png",
 };
 
-// ── APPLY THEME ───────────────────────────────────────
+const CONTROL_PANEL_ICON = {
+  dark: "../simulator/assets/imgs/icons/setting-lines-purple.png",
+  light: "../simulator/assets/imgs/icons/setting-lines-purple.png",
+  dylan: "../simulator/assets/imgs/icons/setting-lines-green.png",
+};
+
+// APPLY THEME
 function applyTheme(key) {
   const theme = THEMES[key];
   if (!theme) return;
@@ -72,12 +81,14 @@ function applyTheme(key) {
   // Update logo + favicon
   const logo = document.getElementById("appLogo");
   const favicon = document.getElementById("favicon");
+  const controlPanelIcon = document.getElementById("controlPanelIcon");
 
   if (logo) logo.src = LOGOS[key];
   if (favicon) favicon.href = LOGOS[key];
+  if (controlPanelIcon) controlPanelIcon.src = CONTROL_PANEL_ICON[key];
 }
 
-// ── INIT THEME UI ─────────────────────────────────────
+// INIT THEME UI
 function initTheme() {
   const btn = document.getElementById("themeBtn");
   const dropdown = document.getElementById("themeDropdown");
@@ -117,13 +128,32 @@ function initTheme() {
   });
 }
 
-// ── BOOT ──────────────────────────────────────────────
+// BOOT
 document.addEventListener("DOMContentLoaded", () => {
   initTheme();
   initHelpModal();
 });
 
-// ── PRELOADER ─────────────────────────────────────────
+// UPDATE PARAMETER VALUES
+function handleSlider(input) {
+  const type = input.dataset.type;
+  const value = input.value;
+
+  let displayValue;
+
+  if (type === "step") {
+    const steps = ["0.0001", "0.001", "0.01", "0.1", "1"];
+    displayValue = steps[value];
+  } else if (type === "l2") {
+    displayValue = "1e-" + value;
+  } else {
+    displayValue = value;
+  }
+
+  document.getElementById(input.id + "Val").textContent = displayValue;
+}
+
+// PRELOADER
 window.addEventListener("load", () => {
   const preloader = document.getElementById("preloader");
   if (!preloader) return;
@@ -136,7 +166,7 @@ window.addEventListener("load", () => {
   }, 300);
 });
 
-// ── HELP CARD ─────────────────────────────────────────
+// HELP CARD
 function initHelpModal() {
   const helpBtn = document.querySelector('[title="Help"]'); // your button
   const modal = document.getElementById("helpModal");
