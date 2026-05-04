@@ -128,12 +128,6 @@ function initTheme() {
   });
 }
 
-// BOOT
-document.addEventListener("DOMContentLoaded", () => {
-  initTheme();
-  initHelpModal();
-});
-
 // UPDATE PARAMETER VALUES
 function handleSlider(input) {
   const type = input.dataset.type;
@@ -151,6 +145,36 @@ function handleSlider(input) {
   }
 
   document.getElementById(input.id + "Val").textContent = displayValue;
+}
+
+function resetParameters() {
+  const sliders = document.querySelectorAll(".param-slider input");
+  const selects = document.querySelectorAll(".ctrl-select");
+
+  sliders.forEach((slider) => {
+    slider.value = slider.dataset.default;
+    handleSlider(slider);
+  });
+
+  selects.forEach((select) => {
+    select.value = select.dataset.default;
+  });
+}
+
+// CLICKABLE INPUT IMAGES
+function initImageSelection() {
+  const images = document.querySelectorAll(".input-img");
+  const content = document.querySelector(".content");
+
+  images.forEach((img) => {
+    img.addEventListener("click", () => {
+      // Remove active from all
+      images.forEach((i) => i.classList.remove("active"));
+
+      // Add active to clicked
+      img.classList.add("active");
+    });
+  });
 }
 
 // PRELOADER
@@ -191,3 +215,10 @@ function initHelpModal() {
     }
   });
 }
+
+// BOOT
+document.addEventListener("DOMContentLoaded", () => {
+  initTheme();
+  initHelpModal();
+  initImageSelection();
+});

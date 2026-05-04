@@ -257,7 +257,6 @@ body {
   grid-template-columns: 240px 1fr 200px;
   gap: 0;
   height: calc(100vh - 56px);
-  overflow: hidden;
 }
 
 /* ═══════════════ CONTROL PANEL / INPUT IMAGES ═══════════════ */
@@ -371,7 +370,7 @@ body {
   border-color: var(--accent-dim);
 }
 
-.control-panel-divider {
+.sidebar-divider {
   border: none;
   border-top: 1px solid var(--border);
   margin: 0;
@@ -393,7 +392,7 @@ body {
   margin-bottom: 2px;
 }
 
-.param-row {
+.param-slider {
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -516,6 +515,10 @@ input[type="range"]:hover::-webkit-slider-thumb {
 
 .imgs-container img:hover {
   cursor: pointer;
+  border: 2px solid var(--accent-dim);
+}
+
+.imgs-container img.active {
   border: 2px solid var(--accent-dim);
 }
 

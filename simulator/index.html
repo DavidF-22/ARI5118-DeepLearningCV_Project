@@ -104,7 +104,8 @@
                         Method
                         <span class="info-icon" title="Visualization technique">i</span>
                     </div>
-                    <select class="ctrl-select" id="methodSelect" onchange="updateMethod(this.value)">
+                    <select class="ctrl-select" id="methodSelect" data-default="activation"
+                        onchange="updateMethod(this.value)">
                         <option value="activation">Activation Maximization</option>
                         <option value="deepdream">DeepDream</option>
                     </select>
@@ -115,7 +116,8 @@
                         Layer
                         <span class="info-icon" title="Network layer to visualize">i</span>
                     </div>
-                    <select class="ctrl-select" id="layerSelect" onchange="updateLayer(this.value)">
+                    <select class="ctrl-select" id="layerSelect" data-default="conv1"
+                        onchange="updateLayer(this.value)">
                         <option value="conv1">Conv1</option>
                         <option value="conv2">Conv2</option>
                         <option value="conv3">Conv3</option>
@@ -132,7 +134,8 @@
                         Filter / Channel
                         <span class="info-icon" title="Which filter to visualize">i</span>
                     </div>
-                    <select class="ctrl-select" id="filterSelect">
+                    <select class="ctrl-select" id="filterSelect" data-default="Filter 1"
+                        onchange="updateFilter(this.value)">
                         <option>Filter 1</option>
                         <option>Filter 2</option>
                         <option>Filter 3</option>
@@ -148,7 +151,7 @@
                 <div class="params-heading">Parameters</div>
             </div>
 
-            <div class="param-row">
+            <div class="param-slider">
                 <div class="param-meta">
                     <span class="param-name">
                         Step Size
@@ -156,11 +159,11 @@
                     </span>
                     <span class="param-val" id="stepSizeVal">0.001</span>
                 </div>
-                <input type="range" min="0" max="4" step="1" value="1" id="stepSize" data-type="step"
+                <input type="range" min="0" max="4" step="1" value="1" id="stepSize" data-type="step" data-default="1"
                     oninput="handleSlider(this)" />
             </div>
 
-            <div class="param-row">
+            <div class="param-slider">
                 <div class="param-meta">
                     <span class="param-name">
                         Iterations
@@ -169,10 +172,10 @@
                     <span class="param-val" id="iterationsVal">100</span>
                 </div>
                 <input type="range" min="10" max="500" value="100" step="10" id="iterations" data-type="iterations"
-                    oninput="handleSlider(this)" />
+                    data-default="100" oninput="handleSlider(this)" />
             </div>
 
-            <div class="param-row">
+            <div class="param-slider">
                 <div class="param-meta">
                     <span class="param-name">
                         L2 Regularization
@@ -180,10 +183,11 @@
                     </span>
                     <span class="param-val" id="l2Val">1e-5</span>
                 </div>
-                <input type="range" min="1" max="10" value="5" id="l2" data-type="l2" oninput="handleSlider(this)" />
+                <input type="range" min="1" max="10" value="5" id="l2" data-type="l2" data-default="5"
+                    oninput="handleSlider(this)" />
             </div>
 
-            <div class="param-row">
+            <div class="param-slider">
                 <div class="param-meta">
                     <span class="param-name">
                         Scale Intensity
@@ -191,7 +195,7 @@
                     </span>
                     <span class="param-val" id="octavesVal">4</span>
                 </div>
-                <input type="range" min="1" max="10" value="4" id="octaves" data-type="octaves"
+                <input type="range" min="1" max="10" value="4" id="octaves" data-type="octaves" data-default="4"
                     oninput="handleSlider(this)" />
             </div>
 
@@ -199,7 +203,7 @@
 
             <div class="control-panel-buttons">
                 <button class="action-btn btn-primary">Update Visualization</button>
-                <button class="action-btn btn-secondary">
+                <button class="action-btn btn-secondary" onclick="resetParameters()">
                     <img src="../simulator/assets/imgs/icons/reset-icon.png" alt="Reset Icon">
                     Reset Parameters
                 </button>
@@ -209,7 +213,7 @@
         <!-- ═══════════════ CONTENT ═══════════════ -->
         <main class="content">
 
-            
+
 
         </main>
 
@@ -218,11 +222,12 @@
             <div class="input-imgs-heading">Input Images</div>
 
             <div class="imgs-container">
-                <img src="../simulator/assets/imgs/input_imgs/Golden-Retriever.png" alt="Golden Retriever">
-                <img src="../simulator/assets/imgs/input_imgs/Black-Cat.png" alt="Black Cat">
-                <img src="../simulator/assets/imgs/input_imgs/mountains.png" alt="Mountains">
-                <img src="../simulator/assets/imgs/input_imgs/Parrot.png" alt="Parrot">
-                <img src="../simulator/assets/imgs/input_imgs/Tokyo_Shibuya.png" alt="Tokyo Shibuya">
+                <img class="input-img active" src="../simulator/assets/imgs/input_imgs/Golden-Retriever.png"
+                    alt="Golden Retriever">
+                <img class="input-img" src="../simulator/assets/imgs/input_imgs/Black-Cat.png" alt="Black Cat">
+                <img class="input-img" src="../simulator/assets/imgs/input_imgs/mountains.png" alt="Mountains">
+                <img class="input-img" src="../simulator/assets/imgs/input_imgs/Parrot.png" alt="Parrot">
+                <img class="input-img" src="../simulator/assets/imgs/input_imgs/Tokyo_Shibuya.png" alt="Tokyo Shibuya">
             </div>
         </aside>
 
