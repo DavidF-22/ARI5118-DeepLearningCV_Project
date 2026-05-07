@@ -1,15 +1,10 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Simulator</title>
-    <meta name="description" content="">
+    <meta name="description" content="Interactive CNN feature visualisation and DeepDream simulator">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link id="favicon" rel="icon" href="../simulator/assets/imgs/logo/logo_purple.png" type="image/png">
@@ -17,10 +12,6 @@
 </head>
 
 <body>
-    <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-
     <!-- ═══════════════ PRELOADER ═══════════════ -->
 
     <div id="preloader">
@@ -46,7 +37,7 @@
 
             <!-- Theme dropdown -->
             <div class="theme-wrapper">
-                <button class="nav-icon-btn" id="themeBtn">
+                <button class="nav-icon-btn" id="themeBtn" title="Change Theme" aria-label="Change Theme">
                     <!-- Sun icon -->
                     <img src="../simulator/assets/imgs/icons/sun.png" class="nav-icon-img" />
                 </button>
@@ -87,7 +78,7 @@
 
     <!-- ═══════════════ MAIN ═══════════════ -->
 
-    <div class="main">
+    <main class="main">
 
         <!-- ═══════════════ CONTROL PANEL ═══════════════ -->
 
@@ -110,8 +101,7 @@
                         Method A
                         <span class="info-icon" title="Visualization technique">i</span>
                     </div>
-                    <select class="ctrl-select" id="methodSelect" data-default="activation"
-                        onchange="updateMethod(this.value)">
+                    <select class="ctrl-select" id="methodASelect" data-default="activation">
                         <option value="activation" selected>Activation Maximization</option>
                         <option value="deepdream">DeepDream</option>
                     </select>
@@ -122,8 +112,7 @@
                         Method B
                         <span class="info-icon" title="Visualization technique">i</span>
                     </div>
-                    <select class="ctrl-select" id="methodSelect" data-default="deepdream"
-                        onchange="updateMethod(this.value)">
+                    <select class="ctrl-select" id="methodBSelect" data-default="deepdream">
                         <option value="activation">Activation Maximization</option>
                         <option value="deepdream" selected>DeepDream</option>
                     </select>
@@ -136,13 +125,14 @@
                     </div>
                     <select class="ctrl-select" id="layerSelect" data-default="conv1"
                         onchange="updateLayer(this.value)">
+                        <option value="input">Input</option>
                         <option value="conv1">Conv1</option>
                         <option value="conv2">Conv2</option>
                         <option value="conv3">Conv3</option>
                         <option value="conv4">Conv4</option>
                         <option value="conv5">Conv5</option>
                         <option value="flatten">Flatten</option>
-                        <option value="dense1">Dense (--)</option>
+                        <option value="dense1">Dense (4096)</option>
                         <option value="dense2">Dense (Output)</option>
                     </select>
                 </div>
@@ -152,13 +142,18 @@
                         Filter / Channel
                         <span class="info-icon" title="Which filter to visualize">i</span>
                     </div>
-                    <select class="ctrl-select" id="filterSelect" data-default="Filter 1"
-                        onchange="updateFilter(this.value)">
-                        <option>Filter 1</option>
-                        <option>Filter 2</option>
-                        <option>Filter 3</option>
-                        <option>Filter 4</option>
-                        <option>Filter 5</option>
+                    <select class="ctrl-select" id="filterSelect" data-default="filter1">
+                        <option value="none">None</option>
+                        <option value="filter1" selected>Filter 1</option>
+                        <option value="filter2">Filter 2</option>
+                        <option value="filter3">Filter 3</option>
+                        <option value="filter4">Filter 4</option>
+                        <option value="filter5">Filter 5</option>
+                        <option value="filter6">Filter 6</option>
+                        <option value="filter7">Filter 7</option>
+                        <option value="filter8">Filter 8</option>
+                        <option value="filter9">Filter 9</option>
+                        <option value="filter10">Filter 10</option>
                     </select>
                 </div>
             </div>
@@ -209,7 +204,8 @@
                 <div class="param-meta">
                     <span class="param-name">
                         (DeepDream) Octaves
-                        <span class="info-icon" title="Number of image scales used to enhance patterns at different levels">i</span>
+                        <span class="info-icon"
+                            title="Number of image scales used to enhance patterns at different levels">i</span>
                     </span>
                     <span class="param-val" id="octavesVal">4</span>
                 </div>
@@ -232,7 +228,7 @@
             <hr class="sidebar-divider" />
 
             <div class="control-panel-buttons">
-                <button class="action-btn btn-primary">Update Visualization</button>
+                <button id="updateVisBtn" class="action-btn btn-primary">Update Visualization</button>
                 <button id="resetParamsBtn" class="action-btn btn-secondary">
                     <img src="../simulator/assets/imgs/icons/reset-icon.png" alt="Reset Icon">
                     Reset Parameters
@@ -240,10 +236,49 @@
             </div>
         </aside>
 
-        <!-- ═══════════════ CONTENT ═══════════════ -->
         <main class="content">
 
+            <!-- CNN Architecture  -->
+            <section class="section-card">
+                <div class="section-heading">CNN Architecture Overview</div>
 
+                <div class="arch-scroll">
+                    <div class="arch-track" id="archTrack"></div>
+                </div>
+
+                <div class="arch-legend">
+                    <div class="legend-item">
+                        <div class="legend-dot conv"></div>
+                        Convolutional Layer
+                    </div>
+
+                    <div class="legend-item">
+                        <div class="legend-dot fc"></div>
+                        Fully Connected Layer
+                    </div>
+
+                    <div class="legend-item">
+                        <div class="legend-dot other"></div>
+                        Other Operations
+                    </div>
+                </div>
+            </section>
+
+            <!-- Feature Visualizations -->
+            <section class="section-card">
+                <div class="section-heading" id="visualizationHeading">
+                    Feature Visualization (<span class="config-val" id="configValFV">Input</span>)
+                </div>
+
+            </section>
+
+            <!-- Feature Maps (Maybe) -->
+            <section class="section-card">
+                <div class="section-heading" id="featureMapsHeading">
+                    Feature Maps (<span class="config-val" id="configValFM">Input</span>)
+                </div>
+
+            </section>
 
         </main>
 
@@ -252,7 +287,7 @@
             <div class="input-imgs-heading">Input Images</div>
 
             <div class="imgs-container">
-                <img class="input-img active" src="../simulator/assets/imgs/input_imgs/Golden-Retriever.png"
+                <img class="input-img" src="../simulator/assets/imgs/input_imgs/Golden-Retriever.png"
                     alt="Golden Retriever">
                 <img class="input-img" src="../simulator/assets/imgs/input_imgs/Black-Cat.png" alt="Black Cat">
                 <img class="input-img" src="../simulator/assets/imgs/input_imgs/mountains.png" alt="Mountains">
@@ -261,8 +296,7 @@
             </div>
         </aside>
 
-
-    </div>
+    </main> <!-- main content -->
 
     <!-- ═══════════════ HELP CARD ═══════════════ -->
 
