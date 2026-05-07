@@ -65,8 +65,8 @@ function updateMethodUI() {
     ?.classList.contains("active");
 
   // Get control panel elements
-  const methodA = document.getElementById("methodASelect")?.value;
-  const methodB = document.getElementById("methodBSelect")?.value;
+  const methodA = document.getElementById("methodASelect").value;
+  const methodB = document.getElementById("methodBSelect").value;
 
   const stepSize = document.getElementById("stepSizeParam");
   const l2 = document.getElementById("l2Param");
@@ -79,13 +79,19 @@ function updateMethodUI() {
   Activation-based methods show step size, l2, and filter options. 
   DeepDream shows octave options.
   */
-  const hasActivation = compareMode
-    ? methodA === "activation" || methodB === "activation"
-    : methodA === "activation";
+  let hasActivation;
+  if (compareMode) {
+    hasActivation = methodA === "activation" || methodB === "activation";
+  } else {
+    hasActivation = methodA === "activation";
+  }
 
-  const hasDeepDream = compareMode
-    ? methodA === "deepdream" || methodB === "deepdream"
-    : methodA === "deepdream";
+  let hasDeepDream;
+  if (compareMode) {
+    hasDeepDream = methodA === "deepdream" || methodB === "deepdream";
+  } else {
+    hasDeepDream = methodA === "deepdream";
+  }
 
   // Show/hide parameters based on method selection.
   setVisible(stepSize, hasActivation);

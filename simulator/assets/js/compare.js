@@ -11,6 +11,9 @@ function initChangeMode() {
     compareBtn.classList.remove("active");
 
     methodBPanel.classList.remove("active");
+
+    // Re-check which parameters should be visible in single mode
+    updateMethodUI();
   });
 
   compareBtn.addEventListener("click", () => {
@@ -18,5 +21,8 @@ function initChangeMode() {
     compareBtn.classList.add("active");
 
     methodBPanel.classList.add("active");
+
+    // Re-check which parameters should be visible in single mode
+    updateMethodUI();
   });
 }
