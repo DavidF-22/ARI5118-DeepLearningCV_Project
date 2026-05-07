@@ -123,8 +123,7 @@
                         Layer
                         <span class="info-icon" title="Network layer to visualize">i</span>
                     </div>
-                    <select class="ctrl-select" id="layerSelect" data-default="conv1"
-                        onchange="updateLayer(this.value)">
+                    <select class="ctrl-select" id="layerSelect" data-default="conv1">
                         <option value="input">Input</option>
                         <option value="conv1">Conv1</option>
                         <option value="conv2">Conv2</option>
@@ -137,7 +136,7 @@
                     </select>
                 </div>
 
-                <div>
+                <div id="filterParam">
                     <div class="ctrl-label">
                         Filter / Channel
                         <span class="info-icon" title="Which filter to visualize">i</span>
@@ -162,67 +161,56 @@
 
             <div class="params-section">
                 <div class="params-heading">Parameters</div>
-            </div>
 
-            <div class="param-slider">
-                <div class="param-meta">
-                    <span class="param-name">
-                        Step Size
-                        <span class="info-icon" title="Adjust the optimization step size">i</span>
-                    </span>
-                    <span class="param-val" id="stepSizeVal">0.001</span>
+                <div class="param-slider" id="stepSizeParam">
+                    <div class="param-meta">
+                        <span class="param-name">
+                            Step Size
+                            <span class="info-icon" title="Adjust the optimization step size">i</span>
+                        </span>
+                        <span class="param-val" id="stepSizeVal">0.001</span>
+                    </div>
+                    <input type="range" min="0" max="4" step="1" value="1" id="stepSize" data-type="step"
+                        data-default="1" />
                 </div>
-                <input type="range" min="0" max="4" step="1" value="1" id="stepSize" data-type="step" data-default="1"
-                    oninput="handleSlider(this)" />
-            </div>
 
-            <div class="param-slider">
-                <div class="param-meta">
-                    <span class="param-name">
-                        Iterations
-                        <span class="info-icon" title="Number of optimization iterations">i</span>
-                    </span>
-                    <span class="param-val" id="iterationsVal">100</span>
-                </div>
-                <input type="range" min="10" max="500" value="100" step="10" id="iterations" data-type="iterations"
-                    data-default="100" oninput="handleSlider(this)" />
-            </div>
+                <div class="param-toggle" id="l2Param">
+                    <div class="param-meta">
+                        <span class="param-name">
+                            L2 Regularization
+                            <span class="info-icon" title="Reduces noisy patterns for smoother visualizations">i</span>
+                        </span>
+                    </div>
 
-            <div class="param-slider">
-                <div class="param-meta">
-                    <span class="param-name">
-                        L2 Regularization
-                        <span class="info-icon" title="Regularization strength">i</span>
-                    </span>
-                    <span class="param-val" id="l2Val">1e-5</span>
+                    <label class="switch">
+                        <input type="checkbox" id="l2Toggle" data-default="false">
+                        <span class="slider-toggle"></span>
+                    </label>
                 </div>
-                <input type="range" min="1" max="10" value="5" id="l2" data-type="l2" data-default="5"
-                    oninput="handleSlider(this)" />
-            </div>
 
-            <div class="param-slider">
-                <div class="param-meta">
-                    <span class="param-name">
-                        (DeepDream) Octaves
-                        <span class="info-icon"
-                            title="Number of image scales used to enhance patterns at different levels">i</span>
-                    </span>
-                    <span class="param-val" id="octavesVal">4</span>
+                <div class="param-slider hidden" id="octavesParam">
+                    <div class="param-meta">
+                        <span class="param-name">
+                            (DeepDream) Octaves
+                            <span class="info-icon"
+                                title="Number of image scales used to enhance patterns at different levels">i</span>
+                        </span>
+                        <span class="param-val" id="octavesVal">4</span>
+                    </div>
+                    <input type="range" min="1" max="10" value="4" id="octaves" data-type="octaves" data-default="4" />
                 </div>
-                <input type="range" min="1" max="10" value="4" id="octaves" data-type="octaves" data-default="4"
-                    oninput="handleSlider(this)" />
-            </div>
 
-            <div class="param-slider">
-                <div class="param-meta">
-                    <span class="param-name">
-                        (DeepDream) Octave Scale
-                        <span class="info-icon" title="How much the image is resized between each octave">i</span>
-                    </span>
-                    <span class="param-val" id="octScaleVal">1.4</span>
+                <div class="param-slider hidden" id="octScaleParam">
+                    <div class="param-meta">
+                        <span class="param-name">
+                            (DeepDream) Octave Scale
+                            <span class="info-icon" title="How much the image is resized between each octave">i</span>
+                        </span>
+                        <span class="param-val" id="octScaleVal">1.4</span>
+                    </div>
+                    <input type="range" min="10" max="20" value="14" id="octScale" data-type="octScale"
+                        data-default="14" />
                 </div>
-                <input type="range" min="10" max="20" value="14" id="octScale" data-type="octScale" data-default="14"
-                    oninput="handleSlider(this)" />
             </div>
 
             <hr class="sidebar-divider" />
@@ -236,7 +224,7 @@
             </div>
         </aside>
 
-        <main class="content">
+        <section class="content">
 
             <!-- CNN Architecture  -->
             <section class="section-card">
@@ -280,16 +268,16 @@
 
             </section>
 
-        </main>
+        </section>
 
         <!-- ═══════════════ INPUT IMAGES ═══════════════ -->
         <aside class="input-imgs">
-            <div class="input-imgs-heading">Input Images</div>
+            <h2 class="input-imgs-heading">Input Images</h2>
 
             <div class="imgs-container">
+                <img class="input-img active" src="../simulator/assets/imgs/input_imgs/Black-Cat.png" alt="Black Cat">
                 <img class="input-img" src="../simulator/assets/imgs/input_imgs/Golden-Retriever.png"
                     alt="Golden Retriever">
-                <img class="input-img" src="../simulator/assets/imgs/input_imgs/Black-Cat.png" alt="Black Cat">
                 <img class="input-img" src="../simulator/assets/imgs/input_imgs/mountains.png" alt="Mountains">
                 <img class="input-img" src="../simulator/assets/imgs/input_imgs/Parrot.png" alt="Parrot">
                 <img class="input-img" src="../simulator/assets/imgs/input_imgs/Tokyo_Shibuya.png" alt="Tokyo Shibuya">
@@ -327,6 +315,13 @@
         </div>
     </div>
 
+    <script src="../simulator/assets/js/preloader.js" defer></script>
+    <script src="../simulator/assets/js/theme.js" defer></script>
+    <script src="../simulator/assets/js/modal.js" defer></script>
+    <script src="../simulator/assets/js/images.js" defer></script>
+    <script src="../simulator/assets/js/compare.js" defer></script>
+    <script src="../simulator/assets/js/controls.js" defer></script>
+    <script src="../simulator/assets/js/architecture.js" defer></script>
     <script src="../simulator/assets/js/simulator.js" defer></script>
 </body>
 

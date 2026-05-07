@@ -1,10 +1,4 @@
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+/* ═══════════════ ROOT ═══════════════ */
 :root {
   --bg-base: #131921;
   --bg-surface: #0a0c12;
@@ -49,6 +43,15 @@
   --arch-dense-shadow: rgba(42, 74, 42, 0.3);
 }
 
+/* ═══════════════ GLOBAL ═══════════════ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   background: var(--bg-base);
   color: var(--text-primary);
@@ -56,6 +59,10 @@ body {
   font-size: 15px;
   line-height: 1.5;
   min-height: 100vh;
+}
+
+.hidden {
+  display: none !important;
 }
 
 /* ═══════════════ PRELOADER ═══════════════ */
@@ -124,14 +131,13 @@ body {
   font-weight: 700;
   letter-spacing: 0.5px;
   color: var(--text-primary);
-  flex: 1; /* pushes actions to the right */
+  flex: 1;
 }
 
 .nav-title span {
   color: var(--accent-text);
 }
 
-/* ═══════════════ SHARED BUTTON BASE ═══════════════ */
 .nav-icon-btn {
   width: 35px;
   height: 35px;
@@ -173,7 +179,7 @@ body {
   filter: var(--icon-filter-hover);
 }
 
-/* ═══════════════ THEME DROPDOWN ═══════════════ */
+/* THEME DROPDOWN */
 .theme-wrapper {
   position: relative;
 }
@@ -432,6 +438,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  transition: opacity 0.2s ease;
 }
 
 .param-meta {
@@ -483,6 +490,59 @@ input[type="range"]::-webkit-slider-thumb {
 
 input[type="range"]:hover::-webkit-slider-thumb {
   box-shadow: 0 0 0 5px var(--accent-glow);
+}
+
+/* TOGGLE */
+.param-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* SWITCH */
+.switch {
+  position: relative;
+  width: 42px;
+  height: 22px;
+}
+
+/* HIDE REAL CHECKBOX */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* BACKGROUND */
+.slider-toggle {
+  position: absolute;
+  inset: 0;
+  background: var(--border);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+/* CIRCLE */
+.slider-toggle::before {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  left: 3px;
+  top: 3px;
+  background: white;
+  border-radius: 50%;
+  transition: 0.2s;
+}
+
+/* ACTIVE */
+.switch input:checked + .slider-toggle {
+  background: var(--accent);
+}
+
+.switch input:checked + .slider-toggle::before {
+  transform: translateX(20px);
 }
 
 /* Bottom Buttons */
@@ -598,7 +658,7 @@ input[type="range"]:hover::-webkit-slider-thumb {
   background: var(--border);
 }
 
-/* CNN Architecture Visualization */
+/* INTERACTIVE CNN ARCHITECTURE DIAGRAM */
 .arch-scroll {
   overflow-x: auto;
 }
@@ -776,7 +836,7 @@ input[type="range"]:hover::-webkit-slider-thumb {
   height: 64px;
 }
 
-/* Input block */
+/* INPUT BLOCK */
 .input-frame {
   width: 44px;
   height: 56px;
@@ -804,8 +864,7 @@ input[type="range"]:hover::-webkit-slider-thumb {
   border-radius: 2px;
 }
 
-/* Convolution layer cards */
-
+/* Conv LAYER CARDS */
 .conv-stack {
   position: relative;
   width: 60px;
@@ -919,8 +978,7 @@ input[type="range"]:hover::-webkit-slider-thumb {
   pointer-events: none;
 }
 
-/* Flatten and dense dots */
-
+/* FLATTEN AND DENSE DOTS */
 .dot-stack {
   display: flex;
   flex-direction: column;
