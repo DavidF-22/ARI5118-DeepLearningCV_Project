@@ -6,12 +6,14 @@ function handleSlider(input) {
   let displayValue;
 
   if (type === "step") {
-    const steps = ["0.0001", "0.001", "0.01", "0.1", "1"];
+    const steps = ["0.001", "0.01", "0.1"];
     displayValue = steps[value];
-  } else if (type === "l2") {
-    displayValue = "1e-" + value;
+  } else if (type === "octaves") {
+    const octaves = ["2", "3", "4"];
+    displayValue = octaves[value];
   } else if (type === "octScale") {
-    displayValue = (value / 10).toFixed(1);
+    const octScales = ["0.6", "0.8", "1.0", "1.2", "1.4"];
+    displayValue = octScales[value];
   } else {
     displayValue = value;
   }
@@ -35,9 +37,9 @@ function resetParameters() {
     toggle.checked = toggle.dataset.default === "true";
   });
 
-  selects.forEach((select) => {
-    select.value = select.dataset.default;
-  });
+  // selects.forEach((select) => {
+  //   select.value = select.dataset.default;
+  // });
 
   // Reset layer and filter to default values
   selectLayer("conv1");

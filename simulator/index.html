@@ -170,8 +170,8 @@
                         </span>
                         <span class="param-val" id="stepSizeVal">0.001</span>
                     </div>
-                    <input type="range" min="0" max="4" step="1" value="1" id="stepSize" data-type="step"
-                        data-default="1" />
+                    <input type="range" min="0" max="2" step="1" value="0" id="stepSize" data-type="step"
+                        data-default="0" />
                 </div>
 
                 <div class="param-toggle" id="l2Param">
@@ -195,9 +195,9 @@
                             <span class="info-icon"
                                 title="Number of image scales used to enhance patterns at different levels">i</span>
                         </span>
-                        <span class="param-val" id="octavesVal">4</span>
+                        <span class="param-val" id="octavesVal">2</span>
                     </div>
-                    <input type="range" min="1" max="10" value="4" id="octaves" data-type="octaves" data-default="4" />
+                    <input type="range" min="0" max="2" value="0" id="octaves" data-type="octaves" data-default="0" />
                 </div>
 
                 <div class="param-slider hidden" id="octScaleParam">
@@ -206,10 +206,9 @@
                             (DeepDream) Octave Scale
                             <span class="info-icon" title="How much the image is resized between each octave">i</span>
                         </span>
-                        <span class="param-val" id="octScaleVal">1.4</span>
+                        <span class="param-val" id="octScaleVal">1.0</span>
                     </div>
-                    <input type="range" min="10" max="20" value="14" id="octScale" data-type="octScale"
-                        data-default="14" />
+                    <input type="range" min="0" max="4" value="2" id="octScale" data-type="octScale" data-default="2" />
                 </div>
             </div>
 
