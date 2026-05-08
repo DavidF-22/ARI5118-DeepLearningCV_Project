@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // trigger an initial UI update to set parameter visibility for default method selections.
   updateMethodUI();
+  loadFeatureMaps();
 
   document
     .getElementById("methodASelect")

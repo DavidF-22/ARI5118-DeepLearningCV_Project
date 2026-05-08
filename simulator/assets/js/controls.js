@@ -37,20 +37,8 @@ function resetParameters() {
     toggle.checked = toggle.dataset.default === "true";
   });
 
-  // selects.forEach((select) => {
-  //   select.value = select.dataset.default;
-  // });
-
-  // Reset layer and filter to default values
   selectLayer("conv1");
-
-  const filterSelect = document.getElementById("filterSelect");
-
-  if (filterSelect) {
-    filterSelect.value = "filter1";
-    updateFilter("filter1");
-  }
-
+  loadFeatureMaps();
   updateMethodUI();
 }
 
@@ -106,21 +94,6 @@ function updateMethodUI() {
 
 // UPDATE FILTER OPTIONS BASED ON SELECTED LAYER
 function updateFilter(filterValue) {
-  const filterSelect = document.getElementById("filterSelect");
-
-  // If the selected layer is not convolutional, force the filter to None.
-  if (!selectedLayer.startsWith("conv")) {
-    selectedFilter = "none";
-
-    if (filterSelect) {
-      filterSelect.value = "none";
-      filterSelect.disabled = true;
-    }
-
-    updateConfigLabels();
-    return;
-  }
-
   // If the selected layer is convolutional, allow the chosen filter.
   selectedFilter = filterValue;
 

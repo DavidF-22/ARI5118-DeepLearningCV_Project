@@ -79,7 +79,15 @@ function buildArchitecture() {
     `;
 
     // When clicked, select this layer.
-    node.addEventListener("click", () => selectLayer(layer.id));
+    // node.addEventListener("click", () => selectLayer(layer.id));
+
+    // Only convolutional layers are clickable
+    if (layer.type === "conv") {
+      node.addEventListener("click", () => selectLayer(layer.id));
+    } else {
+      node.disabled = true;
+      node.classList.add("node-disabled");
+    }
 
     archTrack.appendChild(node);
 
@@ -211,21 +219,9 @@ function selectLayer(layerId) {
   // Update filter behavior depending on whether the layer is convolutional.
   const filterSelect = document.getElementById("filterSelect");
 
-  if (selectedLayer.startsWith("conv")) {
-    // For convolutional layers, ensure a filter is selected; default to filter1 if currently none, otherwise preserve the current filter.
-    if (filterSelect && filterSelect.value === "none") {
-      updateFilter("filter1");
-      filterSelect.value = "filter1";
-    } else if (filterSelect) {
-      // Preserve the currently chosen filter for convolutional layers.
-      updateFilter(filterSelect.value);
-    }
-  } else {
-    // For non-convolutional layers, disable filters.
-    updateFilter("none");
-  }
-
+  updateFilter(filterSelect.value);
   updateConfigLabels();
+  loadFeatureMaps();
 }
 
 /* 
