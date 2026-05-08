@@ -78,9 +78,6 @@ function buildArchitecture() {
       ${createLayerVisual(layer)}
     `;
 
-    // When clicked, select this layer.
-    // node.addEventListener("click", () => selectLayer(layer.id));
-
     // Only convolutional layers are clickable
     if (layer.type === "conv") {
       node.addEventListener("click", () => selectLayer(layer.id));
@@ -182,9 +179,15 @@ function initFilterSelect() {
 
   if (!filterSelect) return;
 
-  // Update the labels whenever the filter changes.
+  // Update whenever filter dropdown changes
   filterSelect.addEventListener("change", () => {
-    updateFilter(filterSelect.value);
+    const filterNumber = filterSelect.value.replace("filter", "");
+
+    const targetCard = document.querySelector(
+      `.feature-map-card:nth-child(${filterNumber})`,
+    );
+
+    targetCard?.click();
   });
 }
 
@@ -216,10 +219,7 @@ function selectLayer(layerId) {
     layerSelect.value = layerId;
   }
 
-  // Update filter behavior depending on whether the layer is convolutional.
-  const filterSelect = document.getElementById("filterSelect");
-
-  updateFilter(filterSelect.value);
+  updateFilter(document.getElementById("filterSelect").value);
   updateConfigLabels();
   loadFeatureMaps();
 }
@@ -236,22 +236,7 @@ function updateConfigLabels() {
 
   const layerLabel = getLayerDisplayName(selectedLayer);
 
-  // Input does not use filters.
-  if (selectedLayer === "input") {
-    configValFV.textContent = "Input";
-    configValFM.textContent = "Input";
-    return;
-  }
-
-  // Convolutional layers use filters/channels.
-  if (selectedLayer.startsWith("conv")) {
-    configValFV.textContent = `${layerLabel} - ${selectedFilter}`;
-    configValFM.textContent = layerLabel;
-    return;
-  }
-
-  // Flatten and Dense layers do not use convolution filters.
-  configValFV.textContent = layerLabel;
+  configValFV.textContent = `${layerLabel} - ${selectedFilter}`;
   configValFM.textContent = layerLabel;
 }
 

@@ -97,9 +97,8 @@ function updateFilter(filterValue) {
   // If the selected layer is convolutional, allow the chosen filter.
   selectedFilter = filterValue;
 
-  if (filterSelect) {
-    filterSelect.disabled = false;
-  }
+  const filterSelect = document.getElementById("filterSelect");
+  filterSelect.disabled = false;
 
   updateConfigLabels();
 }
