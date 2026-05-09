@@ -20,6 +20,7 @@ function handleSlider(input) {
 
   document.getElementById(input.id + "Val").textContent = displayValue;
 
+  saveControlsToActivePreview();
   updateMethodUI();
 }
 
@@ -64,6 +65,7 @@ function updateMethodUI() {
   const filter = document.getElementById("filterParam");
   const octaves = document.getElementById("octavesParam");
   const octScale = document.getElementById("octScaleParam");
+  const featureMapsCard = document.getElementById("featureMapsCard");
 
   /* 
   Determine which parameters to show based on selected methods. 
@@ -88,6 +90,7 @@ function updateMethodUI() {
   setVisible(stepSize, hasActivation);
   setVisible(l2, hasActivation);
   setVisible(filter, hasActivation);
+  setVisible(featureMapsCard, hasActivation);
 
   setVisible(octaves, hasDeepDream);
   setVisible(octScale, hasDeepDream);
@@ -122,6 +125,7 @@ function initControls() {
 
   toggles.forEach((toggle) => {
     toggle.addEventListener("change", () => {
+      saveControlsToActivePreview();
       updateVisualization();
     });
   });

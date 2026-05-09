@@ -73,6 +73,8 @@ function selectFeatureMapFilter(filterValue) {
   }
 
   updateFilter(filterValue);
+
+  saveControlsToActivePreview();
   updateVisualization();
 }
 
@@ -111,29 +113,28 @@ function getOctaveScaleValue() {
 }
 
 // BUILD OUTPUT IMAGE PATH BASED ON METHOD
-function buildOutputPath(method) {
+function buildOutputPath(method, settings = getSettingsFromControls()) {
   const imageName = getActiveImageName();
-  const layer = document.getElementById("layerSelect").value;
 
-  if (!imageName || !layer) return "";
+  if (!imageName || !settings.layer) return "";
 
-  // ACTIVATION MAXIMISATION
   if (method === "activation") {
-    const filter = document.getElementById("filterSelect").value;
-    const stepSize = getStepSizeValue();
+    const stepValues = ["0.001", "0.01", "0.1"];
+    const stepSize = stepValues[Number(settings.step)];
 
-    const useL2 = document.getElementById("l2Toggle").checked;
-    const regFolder = useL2 ? "l2_regularisation" : "no_regularisation";
+    const regFolder = settings.l2 ? "l2_regularisation" : "no_regularisation";
 
-    return `../simulator/assets/imgs/output_imgs/activation_maximisation/${regFolder}/${imageName}/step_${stepSize}/${layer}/${filter}.png`;
+    return `../simulator/assets/imgs/output_imgs/activation_maximisation/${regFolder}/${imageName}/step_${stepSize}/${settings.layer}/${settings.filter}.png`;
   }
 
-  // LAYER-BASED DEEPDREAM
   if (method === "deepdream") {
-    const octaves = getOctavesValue();
-    const scale = getOctaveScaleValue();
+    const octaveValues = ["2", "3", "4"];
+    const scaleValues = ["0.6", "0.8", "1.0", "1.2", "1.4"];
 
-    return `../simulator/assets/imgs/output_imgs/deepdream/${imageName}/octaves_${octaves}/scale_${scale}/${layer}/dream.png`;
+    const octaves = octaveValues[Number(settings.octaves)];
+    const scale = scaleValues[Number(settings.octScale)];
+
+    return `../simulator/assets/imgs/output_imgs/deepdream/${imageName}/octaves_${octaves}/scale_${scale}/${settings.layer}/dream.png`;
   }
 
   return "";
@@ -171,10 +172,12 @@ function updateVisualization() {
     visSection.classList.toggle("compare-active", compareMode);
   }
 
-  previewA.classList.toggle("no-hover", !compareMode);
-  previewB.classList.toggle("no-hover", !compareMode);
+  const sameMethod = compareMode && methodA === methodB;
+  previewA.classList.toggle("no-hover", !sameMethod);
+  previewB.classList.toggle("no-hover", !sameMethod);
 
-  outputImageA.src = buildOutputPath(methodA);
+  const settingsA = sameMethod ? previewSettings.A : getSettingsFromControls();
+  outputImageA.src = buildOutputPath(methodA, settingsA);
   previewA.classList.remove("hidden");
 
   if (outputLabelA) {
@@ -186,7 +189,10 @@ function updateVisualization() {
     previewB.classList.remove("hidden");
 
     if (outputLabelB) {
-      outputLabelB.textContent = getMethodDisplayName(methodB);
+      const settingsB = sameMethod
+        ? previewSettings.B
+        : getSettingsFromControls();
+      outputImageB.src = buildOutputPath(methodB, settingsB);
     }
   } else {
     outputImageB.src = "";
