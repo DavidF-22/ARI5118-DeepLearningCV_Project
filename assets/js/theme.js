@@ -130,15 +130,15 @@ const THEMES = {
 
 // THEME IMAGE ASSETS
 const LOGOS = {
-  dark: "../simulator/assets/imgs/logo/logo_purple.png",
-  light: "../simulator/assets/imgs/logo/logo_purple.png",
-  dylan: "../simulator/assets/imgs/logo/logo_black.png",
+  dark: "./assets/imgs/logo/logo_purple.png",
+  light: "./assets/imgs/logo/logo_purple.png",
+  dylan: "./assets/imgs/logo/logo_black.png",
 };
 
 const CONTROL_PANEL_ICONS = {
-  dark: "../simulator/assets/imgs/icons/setting-lines-purple.png",
-  light: "../simulator/assets/imgs/icons/setting-lines-purple.png",
-  dylan: "../simulator/assets/imgs/icons/setting-lines-green.png",
+  dark: "./assets/imgs/icons/setting-lines-purple.png",
+  light: "./assets/imgs/icons/setting-lines-purple.png",
+  dylan: "./assets/imgs/icons/setting-lines-green.png",
 };
 
 // APPLY THEME

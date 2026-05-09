@@ -45,7 +45,7 @@ function loadFeatureMaps(reset = false) {
 
     card.innerHTML = `
       <img 
-        src="../simulator/assets/imgs/output_imgs/feature_maps/${imageName}/${layer}/${filterValue}.png" 
+        src="./assets/imgs/output_imgs/feature_maps/${imageName}/${layer}/${filterValue}.png" 
         alt="Filter ${i}"
       >
       <div class="feature-map-label">Filter ${i}</div>
@@ -134,7 +134,7 @@ function buildOutputPath(method, settings = getSettingsFromControls()) {
 
     const regFolder = settings.l2 ? "l2_regularisation" : "no_regularisation";
 
-    return `../simulator/assets/imgs/output_imgs/activation_maximisation/${regFolder}/${imageName}/step_${stepSize}/${settings.layer}/${settings.filter}.png`;
+    return `./assets/imgs/output_imgs/activation_maximisation/${regFolder}/${imageName}/step_${stepSize}/${settings.layer}/${settings.filter}.png`;
   }
 
   // DeepDream output depends on octaves, octave scale, and layer
@@ -145,7 +145,7 @@ function buildOutputPath(method, settings = getSettingsFromControls()) {
     const octaves = octaveValues[Number(settings.octaves)];
     const scale = scaleValues[Number(settings.octScale)];
 
-    return `../simulator/assets/imgs/output_imgs/deepdream/${imageName}/octaves_${octaves}/scale_${scale}/${settings.layer}/dream.png`;
+    return `./assets/imgs/output_imgs/deepdream/${imageName}/octaves_${octaves}/scale_${scale}/${settings.layer}/dream.png`;
   }
 
   return "";
