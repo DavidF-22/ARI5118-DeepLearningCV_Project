@@ -18,75 +18,62 @@ function initImageSelection() {
 }
 
 // LOAD FEATURE MAPS
-function loadFeatureMaps() {
+function loadFeatureMaps(reset = false) {
   const grid = document.getElementById("featureMapGrid");
-
-  if (!grid) return;
-  grid.innerHTML = ""; // clear grid
-
   const activeImage = document.querySelector(".input-img.active");
+  const layerSelect = document.getElementById("layerSelect");
+  const filterSelect = document.getElementById("filterSelect");
 
-  if (!activeImage) return;
+  if (!grid || !activeImage || !layerSelect || !filterSelect) return;
+
+  grid.innerHTML = "";
 
   const imageName = activeImage.src.split("/").pop().split(".")[0];
-  const layer = document.getElementById("layerSelect").value; // current layer
+  const layer = layerSelect.value;
 
-  // GENERATE 10 FILTERS
   for (let i = 1; i <= 10; i++) {
+    const filterValue = `filter${i}`;
+
     const card = document.createElement("div");
     card.className = "feature-map-card";
+    card.dataset.filter = filterValue;
 
-    // IMAGE
-    const img = document.createElement("img");
-    console.log(imageName, layer, i);
-    img.src = `../simulator/assets/imgs/output_imgs/feature_maps/${imageName}/${layer}/filter${i}.png`;
-    img.alt = `Filter ${i}`;
+    card.innerHTML = `
+      <img 
+        src="../simulator/assets/imgs/output_imgs/feature_maps/${imageName}/${layer}/${filterValue}.png" 
+        alt="Filter ${i}"
+      >
+      <div class="feature-map-label">Filter ${i}</div>
+    `;
 
-    // LABEL
-    const label = document.createElement("div");
-    label.className = "feature-map-label";
-    label.textContent = `Filter ${i}`;
-
-    // CLICKABLE
     card.addEventListener("click", () => {
-      // remove active
-      document
-        .querySelectorAll(".feature-map-card")
-        .forEach((c) => c.classList.remove("active"));
-
-      // activate clicked
-      card.classList.add("active");
-
-      // update dropdown
-      const filterSelect = document.getElementById("filterSelect");
-
-      if (filterSelect) {
-        filterSelect.value = `filter${i}`;
-      }
-
-      updateFilter(`filter${i}`);
-      updateVisualization();
+      selectFeatureMapFilter(filterValue);
     });
 
-    card.appendChild(img);
-    card.appendChild(label);
     grid.appendChild(card);
-  } // for looP
-
-  // Auto-select Filter 1
-  const firstCard = document.querySelector(".feature-map-card");
-
-  if (firstCard) {
-    firstCard.classList.add("active");
-
-    const filterSelect = document.getElementById("filterSelect");
-
-    if (filterSelect) {
-      filterSelect.value = "filter1";
-    }
-
-    updateFilter("filter1");
   }
+
+  if (reset) {
+    selectFeatureMapFilter("filter1");
+  } else {
+    selectFeatureMapFilter(filterSelect.value);
+  }
+}
+
+// SELECT FEATURE MAP FILTER
+function selectFeatureMapFilter(filterValue) {
+  const filterSelect = document.getElementById("filterSelect");
+
+  document.querySelectorAll(".feature-map-card").forEach((card) => {
+    card.classList.toggle("active", card.dataset.filter === filterValue);
+  });
+
+  if (filterSelect) {
+    filterSelect.value = filterValue;
+  }
+
+  updateFilter(filterValue);
+  updateVisualization();
 }
 
 // LOAD FEATURE VISUALISATION ---

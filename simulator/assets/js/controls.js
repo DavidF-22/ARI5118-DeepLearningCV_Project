@@ -39,7 +39,7 @@ function resetParameters() {
   });
 
   selectLayer("conv1");
-  loadFeatureMaps();
+  loadFeatureMaps(reset = true);
   updateMethodUI();
 }
 
