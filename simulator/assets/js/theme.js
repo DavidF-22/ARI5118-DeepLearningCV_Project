@@ -1,4 +1,8 @@
-// THEME DROPDOWN
+// THEME CONFIGURATION
+/*
+Each theme stores CSS custom property values
+applyTheme() writes these values into :root, so the CSS updates without changing classes manually
+*/
 const THEMES = {
   dark: {
     "--bg-base": "#131921",
@@ -124,7 +128,7 @@ const THEMES = {
   },
 };
 
-// LOGOS
+// THEME IMAGE ASSETS
 const LOGOS = {
   dark: "../simulator/assets/imgs/logo/logo_purple.png",
   light: "../simulator/assets/imgs/logo/logo_purple.png",
@@ -139,15 +143,17 @@ const CONTROL_PANEL_ICONS = {
 
 // APPLY THEME
 function applyTheme(key) {
+  // Look up the chosen theme object using the key from the dropdown
   const theme = THEMES[key];
   if (!theme) return;
 
   // Apply CSS variables
+  // Push every theme variable into :root
   Object.entries(theme).forEach(([prop, val]) => {
     document.documentElement.style.setProperty(prop, val);
   });
 
-  // Update logo + favicon
+  // Update logo and favicon
   const logo = document.getElementById("appLogo");
   const favicon = document.getElementById("favicon");
   const controlPanelIcon = document.getElementById("controlPanelIcon");
@@ -159,6 +165,7 @@ function applyTheme(key) {
 
 // INIT THEME UI
 function initTheme() {
+  // Connect the theme button and dropdown options to the theme system
   const btn = document.getElementById("themeBtn");
   const dropdown = document.getElementById("themeDropdown");
 
@@ -183,7 +190,7 @@ function initTheme() {
     });
     option.classList.add("active");
 
-    // Apply + save
+    // Apply and save
     applyTheme(selectedTheme);
 
     dropdown.classList.remove("open");

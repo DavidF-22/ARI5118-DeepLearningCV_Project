@@ -1,5 +1,6 @@
 // CLICKABLE INPUT IMAGES
 function initImageSelection() {
+  // These are the original input images the user can choose from
   const images = document.querySelectorAll(".input-img");
 
   images.forEach((img) => {
@@ -19,6 +20,7 @@ function initImageSelection() {
 
 // LOAD FEATURE MAPS
 function loadFeatureMaps(reset = false) {
+  // Rebuild the feature-map grid whenever the image or layer changes
   const grid = document.getElementById("featureMapGrid");
   const activeImage = document.querySelector(".input-img.active");
   const layerSelect = document.getElementById("layerSelect");
@@ -26,11 +28,14 @@ function loadFeatureMaps(reset = false) {
 
   if (!grid || !activeImage || !layerSelect || !filterSelect) return;
 
+  // Clear old cards before loading the new layer/image combination
   grid.innerHTML = "";
 
+  // The folder name is based on the active input image filename
   const imageName = activeImage.src.split("/").pop().split(".")[0];
   const layer = layerSelect.value;
 
+  // Each layer folder contains ten pre-generated filter images
   for (let i = 1; i <= 10; i++) {
     const filterValue = `filter${i}`;
 
@@ -46,6 +51,7 @@ function loadFeatureMaps(reset = false) {
       <div class="feature-map-label">Filter ${i}</div>
     `;
 
+    // Clicking a card updates the selected filter and the main output path
     card.addEventListener("click", () => {
       selectFeatureMapFilter(filterValue);
     });
@@ -53,6 +59,7 @@ function loadFeatureMaps(reset = false) {
     grid.appendChild(card);
   }
 
+  // On reset, force Filter 1; otherwise keep the current dropdown value
   if (reset) {
     selectFeatureMapFilter("filter1");
   } else {
@@ -62,6 +69,7 @@ function loadFeatureMaps(reset = false) {
 
 // SELECT FEATURE MAP FILTER
 function selectFeatureMapFilter(filterValue) {
+  // Keep the feature-map grid, dropdown, and global filter state in sync
   const filterSelect = document.getElementById("filterSelect");
 
   document.querySelectorAll(".feature-map-card").forEach((card) => {
@@ -114,10 +122,12 @@ function getOctaveScaleValue() {
 
 // BUILD OUTPUT IMAGE PATH BASED ON METHOD
 function buildOutputPath(method, settings = getSettingsFromControls()) {
+  // This builds the exact file path for the pre-generated output image
   const imageName = getActiveImageName();
 
   if (!imageName || !settings.layer) return "";
 
+  // Activation maximisation output depends on regularisation, step size, layer, and filter
   if (method === "activation") {
     const stepValues = ["0.001", "0.01", "0.1"];
     const stepSize = stepValues[Number(settings.step)];
@@ -127,6 +137,7 @@ function buildOutputPath(method, settings = getSettingsFromControls()) {
     return `../simulator/assets/imgs/output_imgs/activation_maximisation/${regFolder}/${imageName}/step_${stepSize}/${settings.layer}/${settings.filter}.png`;
   }
 
+  // DeepDream output depends on octaves, octave scale, and layer
   if (method === "deepdream") {
     const octaveValues = ["2", "3", "4"];
     const scaleValues = ["0.6", "0.8", "1.0", "1.2", "1.4"];
@@ -147,6 +158,7 @@ function getMethodDisplayName(method) {
   return "Unknown Method";
 }
 
+// UPDATE FEATURE VISUALISATION OUTPUTS
 function updateVisualization() {
   const compareMode = document
     .getElementById("compareModeBtn")
@@ -168,14 +180,17 @@ function updateVisualization() {
 
   if (!previewA || !previewB || !outputImageA || !outputImageB) return;
 
+  // Add a section class so CSS can switch between single and compare layouts
   if (visSection) {
     visSection.classList.toggle("compare-active", compareMode);
   }
 
+  // Same-method compare mode allows each preview to use its own stored settings
   const sameMethod = compareMode && methodA === methodB;
   previewA.classList.toggle("no-hover", !sameMethod);
   previewB.classList.toggle("no-hover", !sameMethod);
 
+  // Preview A uses its stored settings only when separate preview editing is enabled
   const settingsA = sameMethod ? previewSettings.A : getSettingsFromControls();
   outputImageA.src = buildOutputPath(methodA, settingsA);
   previewA.classList.remove("hidden");
@@ -184,6 +199,7 @@ function updateVisualization() {
     outputLabelA.textContent = getMethodDisplayName(methodA);
   }
 
+  // In compare mode, also load preview B using either shared or stored settings
   if (compareMode) {
     outputImageB.src = buildOutputPath(methodB);
     previewB.classList.remove("hidden");

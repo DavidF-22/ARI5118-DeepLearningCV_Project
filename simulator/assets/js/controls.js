@@ -1,5 +1,6 @@
 // UPDATE PARAMETER VALUES
 function handleSlider(input) {
+  // Sliders store small index values, which are mapped to readable parameter values
   const type = input.dataset.type;
   const value = input.value;
 
@@ -18,8 +19,10 @@ function handleSlider(input) {
     displayValue = value;
   }
 
+  // Update the label next to the slider so the user sees the real value
   document.getElementById(input.id + "Val").textContent = displayValue;
 
+  // If same-method compare mode is active, store the changed value for the selected preview
   saveControlsToActivePreview();
   updateMethodUI();
 }
@@ -29,18 +32,20 @@ function resetParameters() {
   const sliders = document.querySelectorAll(".param-slider input");
   const toggles = document.querySelectorAll(".param-toggle input");
 
+  // Reset each slider to the default value stored in the HTML data-default attribute
   sliders.forEach((slider) => {
     slider.value = slider.dataset.default;
     handleSlider(slider);
   });
 
+  // Reset toggles, such as L2 regularisation, using their HTML data-default value
   toggles.forEach((toggle) => {
     //
     toggle.checked = toggle.dataset.default === "true";
   });
 
   selectLayer("conv1");
-  loadFeatureMaps(reset = true);
+  loadFeatureMaps((reset = true));
   updateMethodUI();
 }
 
@@ -51,7 +56,7 @@ function setVisible(element, visible) {
 
 // UPDATE UI BASED ON SELECTED METHODS
 function updateMethodUI() {
-  // Check if in compare mode or single mode to determine which method selectors to check.
+  // Check if in compare mode or single mode to determine which method selectors to check
   const compareMode = document
     .getElementById("compareModeBtn")
     ?.classList.contains("active");
@@ -68,9 +73,9 @@ function updateMethodUI() {
   const featureMapsCard = document.getElementById("featureMapsCard");
 
   /* 
-  Determine which parameters to show based on selected methods. 
-  Activation-based methods show step size, l2, and filter options. 
-  DeepDream shows octave options.
+  Determine which parameters to show based on selected methods
+  Activation-based methods show step size, l2, and filter options
+  DeepDream shows octave options
   */
   let hasActivation;
   if (compareMode) {
@@ -86,12 +91,14 @@ function updateMethodUI() {
     hasDeepDream = methodA === "deepdream";
   }
 
-  // Show/hide parameters based on method selection.
+  // Show/hide parameters based on method selection
+  // Activation maximisation needs step size, L2, filter selection and feature maps
   setVisible(stepSize, hasActivation);
   setVisible(l2, hasActivation);
   setVisible(filter, hasActivation);
   setVisible(featureMapsCard, hasActivation);
 
+  // DeepDream is layer-based here, so only octave controls are shown
   setVisible(octaves, hasDeepDream);
   setVisible(octScale, hasDeepDream);
 
@@ -100,7 +107,7 @@ function updateMethodUI() {
 
 // UPDATE FILTER OPTIONS BASED ON SELECTED LAYER
 function updateFilter(filterValue) {
-  // If the selected layer is convolutional, allow the chosen filter.
+  // If the selected layer is convolutional, allow the chosen filter
   selectedFilter = filterValue;
 
   const filterSelect = document.getElementById("filterSelect");
@@ -109,20 +116,23 @@ function updateFilter(filterValue) {
   updateConfigLabels();
 }
 
-// initializes control panel event listeners for sliders and reset button.
+// INITIALIZES CONTROL PANEL EVENT LISTENERS
 function initControls() {
   const resetBtn = document.getElementById("resetParamsBtn");
   const sliders = document.querySelectorAll(".param-slider input");
   const toggles = document.querySelectorAll(".param-toggle input");
 
+  // Connect the reset button to the shared reset function
   resetBtn?.addEventListener("click", resetParameters);
 
+  // Sliders update their visible labels while the user drags them
   sliders.forEach((slider) => {
     slider.addEventListener("input", () => {
       handleSlider(slider);
     });
   });
 
+  // Toggles immediately update the active preview and output image
   toggles.forEach((toggle) => {
     toggle.addEventListener("change", () => {
       saveControlsToActivePreview();

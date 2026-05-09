@@ -1,6 +1,6 @@
-/* This array stores the information needed to build the CNN diagram.
+/* This array stores the information needed to build the CNN diagram
 Instead of writing every node manually in HTML, JavaScript reads this array
-and creates the architecture automatically.*/
+and creates the architecture automatically */
 
 const ARCHITECTURE_LAYERS = [
   { id: "input", label: "Input", sub: "224×224×3", type: "input" },
@@ -57,21 +57,21 @@ let selectedFilter = "filter1";
 function buildArchitecture() {
   const archTrack = document.getElementById("archTrack");
 
-  // Stop if the architecture container does not exist.
+  // Stop if the architecture container does not exist
   if (!archTrack) return;
 
-  // Clear the container before building the diagram.
+  // Clear the container before building the diagram
   archTrack.innerHTML = "";
 
   ARCHITECTURE_LAYERS.forEach((layer, index) => {
-    // Create one architecture node.
+    // Create one architecture node
     const node = document.createElement("button");
 
     node.type = "button";
     node.className = `arch-node node-${layer.type}`;
     node.dataset.layer = layer.id;
 
-    // Add the label, sub-label, and visual graphic.
+    // Add the label, sub-label, and visual graphic
     node.innerHTML = `
       <div class="arch-node-label">${layer.label}</div>
       <div class="arch-node-sub">${layer.sub || "&nbsp;"}</div>
@@ -88,18 +88,19 @@ function buildArchitecture() {
 
     archTrack.appendChild(node);
 
-    // Add an arrow after every node except the last one.
+    // Add an arrow after every node except the last one
     if (index < ARCHITECTURE_LAYERS.length - 1) {
       archTrack.appendChild(createArrow());
     }
   });
 
-  // Start with Conv1 selected.
+  // Start with Conv1 selected
   selectLayer("conv1");
 }
 
 // THIS FUNCTION UPDATES THE UI TO REFLECT THE SELECTED LAYER
 function createLayerVisual(layer) {
+  // Choose the correct mini-visual depending on the layer type
   if (layer.type === "input") {
     return createInputVisual();
   }
@@ -152,7 +153,7 @@ function createDotVisual(layer) {
     dotsHTML += `<div class="node-dot ${dotType} ${layer.type}-dot-${i}"></div>`;
   }
 
-  // Dense 4096 has 5 dots, so it needs slightly tighter spacing.
+  // Dense 4096 has 5 dots, so it needs slightly tighter spacing
   const denseClass =
     layer.type === "dense" && layer.dots === 5 ? "dense-dot-stack" : "";
 
@@ -175,6 +176,7 @@ function createArrow() {
 
 // INITIALIZES THE FILTER SELECT DROPDOWN
 function initFilterSelect() {
+  // The dropdown reuses the same logic as clicking a feature-map card
   const filterSelect = document.getElementById("filterSelect");
 
   if (!filterSelect) return;
@@ -191,7 +193,7 @@ function initFilterSelect() {
   });
 }
 
-// Initializes the layer select dropdown and sets up the change event listener to select the layer.
+// INITIALIZES THE LAYER SELECT DROPDOWN
 function initLayerSelect() {
   const layerSelect = document.getElementById("layerSelect");
 
@@ -202,23 +204,24 @@ function initLayerSelect() {
   });
 }
 
-// Selects the specified layer, updates the UI to highlight the selected node, synchronizes the layer dropdown, and manages filter selection based on layer type.
+// SELECTS A LAYER AND REFRESHES DEPENDENT UI ELEMENTS
 function selectLayer(layerId) {
-  // Track the currently selected layer in state.
+  // Track the currently selected layer in state
   selectedLayer = layerId;
 
-  // Highlight the active architecture node and clear highlight from others.
+  // Highlight the active architecture node and clear highlight from others
   document.querySelectorAll(".arch-node").forEach((node) => {
     node.classList.toggle("selected", node.dataset.layer === layerId);
   });
 
-  // Keep the Layer dropdown synchronized with node selection.
+  // Keep the Layer dropdown synchronized with node selection
   const layerSelect = document.getElementById("layerSelect");
 
   if (layerSelect) {
     layerSelect.value = layerId;
   }
 
+  // Changing layer affects the active filter, labels, feature maps, and output image
   updateFilter(document.getElementById("filterSelect").value);
   updateConfigLabels();
   loadFeatureMaps();
@@ -227,7 +230,7 @@ function selectLayer(layerId) {
 
 /* 
 THIS FUNCTION UPDATES THE CURRENTLY SELECTED FILTER AND DISPLAYS IT IN THE CONFIG PANEL. 
-IT ALSO HIDES THE FILTER OPTION IF THE SELECTED LAYER IS NOT CONVOLUTIONAL.
+IT ALSO HIDES THE FILTER OPTION IF THE SELECTED LAYER IS NOT CONVOLUTIONAL
 */
 function updateConfigLabels() {
   const configValFV = document.getElementById("configValFV");
@@ -241,7 +244,7 @@ function updateConfigLabels() {
   configValFM.textContent = layerLabel;
 }
 
-// This looks up the display name for a layer based on its ID.
+// GET DISPLAY NAME FOR A LAYER
 function getLayerDisplayName(layerId) {
   const layer = ARCHITECTURE_LAYERS.find((layer) => layer.id === layerId);
   return layer ? layer.label : layerId;

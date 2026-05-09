@@ -6,7 +6,7 @@ function initHelpModal() {
 
   if (!helpBtn || !modal || !closeBtn) return;
 
-  // Open modal
+  // Open modal card
   helpBtn.addEventListener("click", () => {
     modal.style.display = "flex";
   });
