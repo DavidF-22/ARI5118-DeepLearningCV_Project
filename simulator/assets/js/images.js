@@ -37,7 +37,7 @@ function loadFeatureMaps() {
     // IMAGE
     const img = document.createElement("img");
     console.log(imageName, layer, i);
-    img.src = `../simulator/assets/imgs/output_imgs/feature_maps/${imageName}/${layer}/filter_${i}.png`;
+    img.src = `../simulator/assets/imgs/output_imgs/feature_maps/${imageName}/${layer}/filter${i}.png`;
     img.alt = `Filter ${i}`;
 
     // LABEL
