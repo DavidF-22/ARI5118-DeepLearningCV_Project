@@ -160,7 +160,7 @@
                 <div class="param-slider" id="stepSizeParam">
                     <div class="param-meta">
                         <span class="param-name">
-                            Step Size
+                            (AM) Step Size
                             <span class="info-icon" title="Adjust the optimization step size">i</span>
                         </span>
                         <span class="param-val" id="stepSizeVal">0.001</span>
@@ -172,7 +172,7 @@
                 <div class="param-toggle" id="l2Param">
                     <div class="param-meta">
                         <span class="param-name">
-                            L2 Regularization
+                            (AM) L2 Regularisation
                             <span class="info-icon" title="Reduces noisy patterns for smoother visualizations">i</span>
                         </span>
                     </div>
@@ -210,7 +210,6 @@
             <hr class="sidebar-divider" />
 
             <div class="control-panel-buttons">
-                <button id="updateVisBtn" class="action-btn btn-primary">Update Visualization</button>
                 <button id="resetParamsBtn" class="action-btn btn-secondary">
                     <img src="../simulator/assets/imgs/icons/reset-icon.png" alt="Reset Icon">
                     Reset Parameters
@@ -253,12 +252,18 @@
                 </div>
 
                 <div class="feature-visualisation-section">
-                    <div id="previewA" class="output-preview active-preview">
-                        <img id="outputImageA" src="">
+                    <div id="previewA" class="output-preview">
+                        <img id="outputImageA" src="" alt="Method A output">
+                        <div id="outputLabelA" class="output-method-label">
+                            Activation Maximisation
+                        </div>
                     </div>
 
                     <div id="previewB" class="output-preview hidden">
-                        <img id="outputImageB" src="">
+                        <img id="outputImageB" src="" alt="Method B output">
+                        <div id="outputLabelB" class="output-method-label">
+                            DeepDream
+                        </div>
                     </div>
                 </div>
             </section>

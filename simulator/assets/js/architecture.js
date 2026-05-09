@@ -222,6 +222,7 @@ function selectLayer(layerId) {
   updateFilter(document.getElementById("filterSelect").value);
   updateConfigLabels();
   loadFeatureMaps();
+  updateVisualization();
 }
 
 /* 

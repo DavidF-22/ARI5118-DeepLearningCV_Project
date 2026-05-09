@@ -19,13 +19,14 @@ function handleSlider(input) {
   }
 
   document.getElementById(input.id + "Val").textContent = displayValue;
+
+  updateMethodUI();
 }
 
 // RESET PARAMETERS TO DEFAULT
 function resetParameters() {
   const sliders = document.querySelectorAll(".param-slider input");
   const toggles = document.querySelectorAll(".param-toggle input");
-  const selects = document.querySelectorAll(".ctrl-select");
 
   sliders.forEach((slider) => {
     slider.value = slider.dataset.default;
@@ -90,6 +91,8 @@ function updateMethodUI() {
 
   setVisible(octaves, hasDeepDream);
   setVisible(octScale, hasDeepDream);
+
+  updateVisualization();
 }
 
 // UPDATE FILTER OPTIONS BASED ON SELECTED LAYER
@@ -107,12 +110,19 @@ function updateFilter(filterValue) {
 function initControls() {
   const resetBtn = document.getElementById("resetParamsBtn");
   const sliders = document.querySelectorAll(".param-slider input");
+  const toggles = document.querySelectorAll(".param-toggle input");
 
   resetBtn?.addEventListener("click", resetParameters);
 
   sliders.forEach((slider) => {
     slider.addEventListener("input", () => {
       handleSlider(slider);
+    });
+  });
+
+  toggles.forEach((toggle) => {
+    toggle.addEventListener("change", () => {
+      updateVisualization();
     });
   });
 }
