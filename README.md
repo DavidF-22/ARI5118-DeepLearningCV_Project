@@ -4,13 +4,13 @@ This branch is used to host the **CNN Feature Visualization & DeepDream Simulato
 
 The simulator was developed as part of the **ARI5118 - Deep Learning for Computer Vision** study unit at the **University of Malta**. It is designed to help students explore how convolutional neural networks respond to different layers, filters, inputs, and visualisation methods.
 
-## Branch Purpose
+## 🤔 Branch Purpose
 
 The `simulator_github_pages` branch contains only the files needed to deploy and serve the simulator website.
 
 The main project files, including the notebook used to generate the precomputed outputs, are kept in the main branch.
 
-## Project Overview
+## 🗒️ Project Overview
 
 The simulator focuses on two main CNN visualisation techniques:
 
@@ -19,7 +19,7 @@ The simulator focuses on two main CNN visualisation techniques:
 
 The website does not run deep learning models live in the browser. Instead, it loads **precomputed CNN visualisation outputs**, making it lightweight and suitable for GitHub Pages.
 
-## Website Structure
+## 📂 Website Folder Structure
 
 ```text
 ARI5118-DeepLearningCV_Project/
@@ -48,8 +48,8 @@ ARI5118-DeepLearningCV_Project/
         └── output_imgs/
 ```
 
-## Live Site
->**[https://DavidF-22.github.io/ARI5118-DeepLearningCV_Project/](https://DavidF-22.github.io/ARI5118-DeepLearningCV_Project/)**
+## 🌐 Live Site
+```>>``` **[https://DavidF-22.github.io/ARI5118-DeepLearningCV_Project/](https://DavidF-22.github.io/ARI5118-DeepLearningCV_Project/)**
 
 ## Features
 
@@ -63,7 +63,7 @@ ARI5118-DeepLearningCV_Project/
 - Light, dark, and custom Dylan themes
 - Responsive static website
 
-## Technologies Used
+## ⚙️ Technologies Used
 
 - HTML
 - CSS
@@ -71,4 +71,9 @@ ARI5118-DeepLearningCV_Project/
 - Precomputed CNN visualisation outputs
 - GitHub Pages
 
+> [!NOTE]
 > The visualisation outputs were generated using the notebook in the main branch: `walkthrough.ipynb`.
+
+## 📧 Contact
+
+For any inquiries or feedback, please contact [David Farrugia](mailto:david.farrugia.22@um.edu.mt).
