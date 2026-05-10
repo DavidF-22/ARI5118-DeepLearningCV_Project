@@ -201,14 +201,15 @@ function updateVisualization() {
 
   // In compare mode, also load preview B using either shared or stored settings
   if (compareMode) {
-    outputImageB.src = buildOutputPath(methodB);
+    const settingsB = sameMethod
+      ? previewSettings.B
+      : getSettingsFromControls();
+
+    outputImageB.src = buildOutputPath(methodB, settingsB);
     previewB.classList.remove("hidden");
 
     if (outputLabelB) {
-      const settingsB = sameMethod
-        ? previewSettings.B
-        : getSettingsFromControls();
-      outputImageB.src = buildOutputPath(methodB, settingsB);
+      outputLabelB.textContent = getMethodDisplayName(methodB);
     }
   } else {
     outputImageB.src = "";
