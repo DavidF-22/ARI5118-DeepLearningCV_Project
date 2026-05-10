@@ -87,8 +87,11 @@ function loadActivePreviewToControls() {
   handleSlider(document.getElementById("octaves"));
   handleSlider(document.getElementById("octScale"));
 
-  updateConfigLabels();
-  loadFeatureMaps();
+  // Use selectLayer so the architecture highlight also updates
+  selectLayer(settings.layer);
+
+  // Keep the filter in sync after the layer has changed
+  selectFeatureMapFilter(settings.filter);
 }
 
 // UPDATE WHICH PREVIEW LOOKS ACTIVE

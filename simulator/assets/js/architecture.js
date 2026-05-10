@@ -240,7 +240,22 @@ function updateConfigLabels() {
 
   const layerLabel = getLayerDisplayName(selectedLayer);
 
-  configValFV.textContent = `${layerLabel} - ${selectedFilter}`;
+  const compareMode = document
+    .getElementById("compareModeBtn")
+    ?.classList.contains("active");
+
+  const methodA = document.getElementById("methodASelect")?.value;
+  const methodB = document.getElementById("methodBSelect")?.value;
+
+  const activeMethod =
+    compareMode && activePreviewSide === "B" ? methodB : methodA;
+
+  if (activeMethod === "deepdream") {
+    configValFV.textContent = layerLabel;
+  } else {
+    configValFV.textContent = `${layerLabel} - ${selectedFilter}`;
+  }
+
   configValFM.textContent = layerLabel;
 }
 

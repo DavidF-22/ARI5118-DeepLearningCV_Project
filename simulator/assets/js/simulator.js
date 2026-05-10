@@ -24,12 +24,15 @@ document.addEventListener("DOMContentLoaded", () => {
   // Method changes can affect visible controls, active preview styling and output paths
   document.getElementById("methodASelect")?.addEventListener("change", () => {
     updateMethodUI();
+    updateConfigLabels();
     refreshPreviewSelection();
     updateVisualization();
+
   });
 
   document.getElementById("methodBSelect")?.addEventListener("change", () => {
     updateMethodUI();
+    updateConfigLabels();
     refreshPreviewSelection();
     updateVisualization();
   });
