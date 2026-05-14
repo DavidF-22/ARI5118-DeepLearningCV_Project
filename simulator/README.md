@@ -11,7 +11,7 @@ The simulator demonstrates two main CNN visualisation techniques:
 - **Activation Maximisation**
 - **DeepDream**
 
-Instead of running a deep learning model live in the browser, the simulator uses **precomputed visualisation outputs** generated beforehand utilising the **[`walkthrough.ipynb`](https://github.com/DavidF-22/ARI5118-DeepLearningCV_Project/blob/main/walkthrough.ipynb)** notebook in this repository. This keeps the simulator lightweight, responsive, and fully CPU-friendly.
+Instead of running a deep learning model live in the browser, the simulator uses **precomputed visualisation outputs** generated beforehand utilising the **[`walkthrough.ipynb`](../walkthrough.ipynb)** notebook in this repository. This keeps the simulator lightweight, responsive, and fully CPU-friendly.
 
 The interface allows users to change visualisation settings and immediately observe how the displayed outputs change.
 
@@ -19,7 +19,7 @@ The interface allows users to change visualisation settings and immediately obse
 
 The simulator is also available online through GitHub Pages:
 
-`>>`**[https://davidf-22.github.io/ARI5118-DeepLearningCV_Project/](https://davidf-22.github.io/ARI5118-DeepLearningCV_Project/)**
+`>>` **https://davidf-22.github.io/ARI5118-DeepLearningCV_Project/**
 
 ## 📋 Features
 
@@ -41,7 +41,7 @@ The simulator is also available online through GitHub Pages:
 - Help modal explaining how to use the interface
 - Responsive static web interface
 
-## Folder Structure
+## 🗃️ Folder Structure
 
 ```text
 simulator/
@@ -74,7 +74,7 @@ simulator/
 
 Since this simulator is a static website, no GPU or backend server is required.
 
-After cloning the repository, follow the steps in the main **[`README.md`](https://github.com/DavidF-22/ARI5118-DeepLearningCV_Project/blob/main/README.md)** file for the full setup guide.
+After cloning the repository, follow the steps in the main **[`README.md`](../README.md)** file, under the `Setup Instructions` section for the full setup guide.
 
 1. Open the cloned repository in **Visual Studio Code**.
 
@@ -115,6 +115,10 @@ After cloning the repository, follow the steps in the main **[`README.md`](https
 - Precomputed CNN visualisation outputs
 - GitHub Pages for deployment
 
+## 👍 Acknowledgments
+
+This individual project was carried out as part of the partial fulfilment of the requirements for the **ARI5118 Deep Learning for Computer Vision** course @ **[The University of Malta](https://www.um.edu.mt/)**.
+
 ## 📧 Contact
 
-For any inquiries or feedback, please contact [David Farrugia](mailto:david.farrugia.22@um.edu.mt).
+For any inquiries or feedback, please contact [David Farrugia](mailto:david.farrugia.22@um.edu.mt)
