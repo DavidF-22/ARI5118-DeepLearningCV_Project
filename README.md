@@ -100,7 +100,7 @@ pip install -r requirements.txt
 > [!NOTE]
 > The `requirements.txt` file includes PyTorch with CUDA support, which was used during development to generate the visualisation outputs more efficiently.
 
-> If you do not have a CUDA-compatible GPU, you can install the CPU-only version of PyTorch instead by following the official PyTorch installation instructions.
+If you do not have a CUDA-compatible GPU, you can install the CPU-only version of PyTorch instead by following the official PyTorch installation instructions.
 
 ```bash
 pip install torch torchvision
