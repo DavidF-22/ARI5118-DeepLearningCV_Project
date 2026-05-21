@@ -108,8 +108,8 @@ pip install torch torchvision
 
 > **GPU support is only relevant if you want to run or modify the notebook and regenerate the visualisation outputs.**
 
-### 4. Run workbook.ipynb - `IMP`
-The notebook must be `executed fully` to generate the output_imgs directory which is needed to run the simulator locally. This is a very important stage.
+### 4. Run workbook.ipynb - **`IMP`**
+The notebook must be **`executed fully`** to generate the **output_imgs** directory which is **needed** to run the simulator locally. This is a very important stage.
 
 ## 🧑‍💻 Technologies Used
 
